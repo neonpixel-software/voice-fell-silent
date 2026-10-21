@@ -1,0 +1,17 @@
+# Godot 4 editor cache and imports
+.godot/
+*.tmp
+
+# Export output and Android build template
+/build/
+/android/
+
+# Export credentials live in .godot/ in Godot 4, but never commit keystores
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+
+# OS junk
+.DS_Store
+Thumbs.db
