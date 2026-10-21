@@ -18,14 +18,28 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/godot
-          key: godot-${{ env.GODOT_VERSION }}
+          # Key is versioned so entries built by the old workflow (which
+          # cached the binary without any integrity check) are never reused.
+          # Only downloads that passed verification get cached under this key.
+          key: godot-${{ env.GODOT_VERSION }}.integrity-1
 
       - name: Download Godot
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           mkdir -p ~/godot
-          curl -sSL -o /tmp/godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
-          unzip -q /tmp/godot.zip -d ~/godot
+          curl -fSL -o "/tmp/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip" "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          curl -fSL -o /tmp/SHA512-SUMS.txt "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/SHA512-SUMS.txt"
+
+      - name: Verify Godot integrity
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          # Integrity gate: the binary is only unzipped after its SHA-512
+          # matches the checksums published with the release. Fail closed if
+          # the checksum entry is missing or the digest does not match.
+          grep -E "^[0-9a-fA-F]+ +Godot_v${GODOT_VERSION}-stable_linux\.x86_64\.zip$" /tmp/SHA512-SUMS.txt > /tmp/godot.sums
+          test -s /tmp/godot.sums
+          (cd /tmp && sha512sum -c --quiet godot.sums)
+          unzip -q "/tmp/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip" -d ~/godot
 
       - name: Import project
         run: ~/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64 --headless --path . --import
