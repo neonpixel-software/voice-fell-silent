@@ -130,7 +130,7 @@ func test_compact_worlds_have_two_local_bans() -> void:
 func test_core_cargo_rules_hold() -> void:
 	_each_galaxy(func(g: Galaxy, label: String) -> void:
 		var accord := g.rules[Factions.ACCORD]
-		check_eq(accord.status_of(Goods.DATACORES), Legality.CONTRABAND, "Accord allows data cores, " + label)
+		check_eq(accord.status_of(Goods.DATACORES), Legality.CONTRABAND, "Accord data cores should be contraband, " + label)
 		check(Legality.is_illegal(g.rules[Factions.SUCCESSION].status_of(Goods.GLINT)),
 			"Succession allows glint, " + label)
 		for good in Goods.ALL:

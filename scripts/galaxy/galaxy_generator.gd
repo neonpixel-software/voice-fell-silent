@@ -304,6 +304,8 @@ func _grow_territories(types: Array[String]) -> Array[String]:
 					if cost < best_cost:
 						best_cost = cost
 						best_v = v
+			# One claim per faction per round (outside the `for i` loop), with the
+			# target checked before each claim, so no faction overshoots it.
 			if best_v >= 0:
 				owner[best_v] = f
 				count[f] += 1
