@@ -3,7 +3,7 @@ extends RefCounted
 ## The factions of the Reach.
 ##
 ## All seven factions from the design docs are defined here. Prototype 0.1 only
-## puts four of them on the map (see GalaxyGenerator.PROTOTYPE_CAST); the
+## puts four of them on the map (see GalaxySettings.cast); the
 ## numbers for Seyl, the Embers and the Ninefold are first guesses from the
 ## economy doc's descriptions and have not been played yet.
 ##

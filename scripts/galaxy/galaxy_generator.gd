@@ -101,6 +101,9 @@ func _place_points() -> void:
 				break
 		if clear:
 			_points.append(p)
+	if _points.size() < _settings.system_count:
+		push_error("Galaxy seed %d: placed only %d of %d systems; min_spacing too large for the map?"
+			% [_galaxy.galaxy_seed, _points.size(), _settings.system_count])
 
 
 # --- 2. Lanes ---------------------------------------------------------------
@@ -315,6 +318,8 @@ func _make_systems(types: Array[String], owner: Array[String]) -> void:
 	_shuffle(havens)
 	_shuffle(derelicts)
 	var used_names := {}
+	var clan_glint_open := _galaxy.rules.has(Factions.CLANS) \
+		and _galaxy.rules[Factions.CLANS].status_of(Goods.GLINT) != Legality.CONTRABAND
 
 	for s in _galaxy.systems:
 		var i := s.id
@@ -342,8 +347,6 @@ func _make_systems(types: Array[String], owner: Array[String]) -> void:
 			_shuffle(bans)
 			s.local_bans.assign(bans.slice(0, 2))
 
-		var clan_glint_open := _galaxy.rules.has(Factions.CLANS) \
-			and _galaxy.rules[Factions.CLANS].status_of(Goods.GLINT) != Legality.CONTRABAND
 		for g in Goods.ALL:
 			var mod := SystemTypes.price_mod(s.type, g)
 			var sup: int

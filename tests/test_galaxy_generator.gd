@@ -88,7 +88,7 @@ func test_black_market_within_three_jumps_of_start() -> void:
 		var hops := g.hops_from(g.start)
 		var found := false
 		for s in g.systems:
-			if (s.has_black_market or s.type == SystemTypes.HAVEN) and hops[s.id] <= 3:
+			if (s.has_black_market or s.type == SystemTypes.HAVEN) and hops[s.id] >= 0 and hops[s.id] <= 3:
 				found = true
 		check(found, "no black market within 3 jumps of start, " + label))
 
