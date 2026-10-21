@@ -42,11 +42,18 @@ func _new_seed() -> void:
 func _generate_from_field() -> void:
 	var settings := GalaxySettings.new()
 	settings.system_count = int(_size_spin.value)
-	var galaxy := GalaxyGenerator.generate(_seed_edit.text.to_int(), settings)
+	var galaxy := GalaxyGenerator.generate(_seed_from_text(_seed_edit.text), settings)
 	_map.galaxy = galaxy
 	_summary.text = _summary_text(galaxy)
 	_map.selected = galaxy.start
 	_show_system(galaxy.start)
+
+
+## Numbers are used as-is; any other text (a word, a phrase) is hashed, so
+## players can share galaxies by name.
+func _seed_from_text(text: String) -> int:
+	var t := text.strip_edges()
+	return t.to_int() if t.is_valid_int() else t.hash()
 
 
 func _summary_text(galaxy: Galaxy) -> String:

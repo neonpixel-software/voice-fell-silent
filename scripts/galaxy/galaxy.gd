@@ -12,7 +12,8 @@ var rules: Dictionary[String, FactionRules] = {}
 var seats: Dictionary[String, int] = {}
 var start: int = 0
 
-var _adjacency: Array = []
+## Per system: [{id, days}] for each lane.
+var _adjacency: Array[Array] = []
 
 
 func system(id: int) -> StarSystem:

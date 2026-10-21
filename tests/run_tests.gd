@@ -4,6 +4,11 @@ extends SceneTree
 ##   godot --headless --path . -s res://tests/run_tests.gd
 ## Runs every test_* method on every script in TEST_SCRIPTS and exits non-zero
 ## on any failure.
+##
+## Only failed check() calls count as failures. A runtime error inside a test
+## (bad index, null access) is printed but does NOT fail the run, because
+## GDScript errors don't propagate out of call(). Assert with check() rather
+## than relying on a crash.
 
 const TEST_SCRIPTS: Array[String] = [
 	"res://tests/test_galaxy_generator.gd",

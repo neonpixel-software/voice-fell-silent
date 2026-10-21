@@ -75,7 +75,7 @@ func _build() -> Galaxy:
 	var types := _deal_types()
 	_roll_rules()
 	var owner := _grow_territories(types)
-	_galaxy.start = _galaxy.seats[_settings.cast[0]]
+	_galaxy.start = _galaxy.seats.get(_settings.cast[0], 0)
 	_make_systems(types, owner)
 	_ensure_black_market_near_start()
 	for s in _galaxy.systems:
@@ -275,6 +275,9 @@ func _grow_territories(types: Array[String]) -> Array[String]:
 			if score > best_score:
 				best_score = score
 				best = i
+		if best < 0:
+			push_error("Galaxy seed %d: no seat candidate for %s." % [_galaxy.galaxy_seed, f])
+			continue
 		_galaxy.seats[f] = best
 		owner[best] = f
 
