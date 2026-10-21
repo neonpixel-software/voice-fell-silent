@@ -1,5 +1,7 @@
 # When the Voice Fell Silent
 
+> ⚠️ **Disclaimer:** This repository was built by three LLMs (large language models). The code was written by language models, but it holds the same standard as anything else here: it has to pass CI, the test suites, and the SonarCloud quality gate before it lands.
+
 A top-down space trading and smuggling game. The Voice, who ruled by decree, is
 dead. His empire, the Edict, lost the war to the Accord, and his regional
 governors, the Echoes, now fight over what is left of the Reach. You fly a
