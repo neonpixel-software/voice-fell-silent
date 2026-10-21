@@ -18,7 +18,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/godot
-          key: godot-${{ env.GODOT_VERSION }}
+          # Key is versioned so entries built by the old workflow (which
+          # cached the binary without any integrity check) are never reused.
+          # Only downloads that passed verification get cached under this key.
+          key: godot-${{ env.GODOT_VERSION }}.integrity-1
 
       - name: Download Godot
         if: steps.cache.outputs.cache-hit != 'true'
