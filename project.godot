@@ -1,0 +1,43 @@
+; Engine configuration file.
+; Pinned to Godot 4.7.2. See CLAUDE.md before changing engine settings.
+
+config_version=5
+
+[application]
+
+config/name="When the Voice Fell Silent"
+config/description="A space trading and smuggling game set in the Reach, after the Voice fell silent."
+config/version="0.1.0"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+UIScale="*res://scripts/autoload/ui_scale.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/window_width_override=1600
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=4
+
+[gui]
+
+theme/default_font_size=16
+common/drop_mouse_on_gui_input_disabled=true
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=false
+pointing/emulate_mouse_from_touch=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.051, 0.078, 0.098, 1)

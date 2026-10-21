@@ -1,0 +1,119 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/ui/galaxy_map_view.gd" id="2_map"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.051, 0.078, 0.098, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Layout" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MapView" type="Control" parent="Margin/Layout"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_map")
+
+[node name="Sidebar" type="PanelContainer" parent="Margin/Layout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/Layout/Sidebar"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Margin/Layout/Sidebar/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Margin/Layout/Sidebar/Scroll/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "When the Voice Fell Silent"
+autowrap_mode = 3
+
+[node name="Subtitle" type="Label" parent="Margin/Layout/Sidebar/Scroll/VBox"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+text = "Galaxy generator preview"
+
+[node name="SeedRow" type="HBoxContainer" parent="Margin/Layout/Sidebar/Scroll/VBox"]
+layout_mode = 2
+
+[node name="SeedEdit" type="LineEdit" parent="Margin/Layout/Sidebar/Scroll/VBox/SeedRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Seed"
+virtual_keyboard_type = 2
+
+[node name="Generate" type="Button" parent="Margin/Layout/Sidebar/Scroll/VBox/SeedRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Generate"
+
+[node name="NewSeed" type="Button" parent="Margin/Layout/Sidebar/Scroll/VBox/SeedRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New seed"
+
+[node name="SizeRow" type="HBoxContainer" parent="Margin/Layout/Sidebar/Scroll/VBox"]
+layout_mode = 2
+
+[node name="SizeLabel" type="Label" parent="Margin/Layout/Sidebar/Scroll/VBox/SizeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Systems"
+
+[node name="SizeSpin" type="SpinBox" parent="Margin/Layout/Sidebar/Scroll/VBox/SizeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 12.0
+max_value = 48.0
+value = 16.0
+
+[node name="Summary" type="RichTextLabel" parent="Margin/Layout/Sidebar/Scroll/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="Separator" type="HSeparator" parent="Margin/Layout/Sidebar/Scroll/VBox"]
+layout_mode = 2
+
+[node name="Info" type="RichTextLabel" parent="Margin/Layout/Sidebar/Scroll/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
